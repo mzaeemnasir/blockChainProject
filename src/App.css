@@ -1,0 +1,32 @@
+.Combobox {
+    height: 100px;
+    width: 100px;
+}
+.container {
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+  
+  .heading {
+    color: blue;
+  }
+  
+  .button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #45a049;
+  }
+  
+  .background-image {
+    background-image: url('path/to/your/image.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
