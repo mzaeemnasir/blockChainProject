@@ -6,11 +6,13 @@ function CustomIndicator() {
   const [takeProfit, setTakeProfit] = useState(false);
   const [stopLoss, setStopLoss] = useState(false);
 
-  const indicators = ['Indicator 1', 'Indicator 2'];
-  const conditionsList = ['Condition 1', 'Condition 2', 'Condition 3'];
+  const indicators = ['PriceOpen', 'PriceHigh', 'PriceLow', 'PriceClose', "MACD 12,26", "EMA", "SMA", "RSI"];
+  const conditionsList = ['Greater Than Or Equal', 'Less Than Or Equal', 'Crosses Above', 'Crosses Below', 'Equal'];
+  const choice = ["Indicator", "ConstantValue"]
+
 
   const handleAddCondition = () => {
-    setConditions([...conditions, { indicator: '', length: '', condition: '', value: '' }]);
+    setConditions([...conditions, { indicator: '', length: '', condition: '', value: '', valueLength: '' }]);
   };
 
   const handleRemoveCondition = (index) => {
@@ -46,7 +48,7 @@ function CustomIndicator() {
     const jsonData = JSON.stringify(data);
     console.log(jsonData);
     alert('JSON data: ' + jsonData);
-    
+
     // Clear input fields
     setConditions([{ indicator: '', length: '', condition: '', value: '' }]);
     setTakeProfit(false);
@@ -66,7 +68,7 @@ function CustomIndicator() {
         minHeight: '100vh',
       }}
     >
-      <h1 style={{ color: 'blue', marginBottom: '20px' }}>Create your Custom Indicator</h1>
+      <h1 style={{ color: '#f5f5f5', marginBottom: '100px', marginTop: '200px' }}>Create your own Custom Trading Bot</h1>
       {conditions.map((condition, index) => (
         <div key={index}>
           <select
@@ -82,14 +84,16 @@ function CustomIndicator() {
               </option>
             ))}
           </select>
-          <input
-            type="text"
-            name="length"
-            value={condition.length}
-            onChange={(event) => handleConditionChange(index, event)}
-            placeholder="Length"
-            style={{ backgroundColor: '#fff', padding: '5px', borderRadius: '3px', border: '1px solid #ccc', marginRight: '10px' }}
-          />
+          {condition.indicator.toString().startsWith("Price") === false && condition.indicator.toString().startsWith("MACD") === false ? (
+            <input
+              type="text"
+              name="length"
+              value={condition.length}
+              onChange={(event) => handleConditionChange(index, event)}
+              placeholder="Length"
+              style={{ backgroundColor: '#fff', padding: '5px', borderRadius: '3px', border: '1px solid #ccc', marginRight: '10px' }}
+            />
+          ) : null}
           <select
             name="condition"
             value={condition.condition}
@@ -103,7 +107,20 @@ function CustomIndicator() {
               </option>
             ))}
           </select>
-          {condition.condition === 'Condition 3' ? (
+          <select
+            name="choice"
+            value={condition.choice}
+            onChange={(event) => handleConditionChange(index, event)}
+            style={{ backgroundColor: '#fff', padding: '5px', borderRadius: '3px', border: '1px solid #ccc', marginRight: '10px' }}
+          >
+            <option value="">Select Choice</option>
+            {choice.map((choice) => (
+              <option value={choice} key={choice}>
+                {choice}
+              </option>
+            ))}
+          </select>
+          {condition.choice === "ConstantValue" ? (
             <input
               type="text"
               name="value"
@@ -113,6 +130,40 @@ function CustomIndicator() {
               style={{ backgroundColor: '#fff', padding: '5px', borderRadius: '3px', border: '1px solid #ccc', marginRight: '10px' }}
             />
           ) : null}
+
+          {condition.choice === "Indicator" ? (
+            <select
+              name="value"
+              value={condition.value}
+              onChange={(event) => handleConditionChange(index, event)}
+              style={{ backgroundColor: '#fff', padding: '5px', borderRadius: '3px', border: '1px solid #ccc', marginRight: '10px' }}
+            >
+              <option value="">Select Indicator</option>
+              {indicators.map((indicator) => (
+                <option value={indicator} key={indicator}>
+                  {indicator}
+                </option>
+              ))}
+            </select>
+
+
+
+          ) : null}
+          {condition.value.toString().startsWith("Price") === false && condition.value.toString().startsWith("MACD") === false ? (
+            <input
+              type="text"
+              name="valueLength"
+              value={condition.valueLength}
+              onChange={(event) => handleConditionChange(index, event)}
+              placeholder="Length"
+              style={{ backgroundColor: '#fff', padding: '5px', borderRadius: '3px', border: '1px solid #ccc', marginRight: '10px' }}
+            />
+          ) : null}
+
+
+
+
+
           {conditions.length > 1 ? (
             <button onClick={() => handleRemoveCondition(index)} style={{ backgroundColor: 'blue', color: '#fff', border: 'none', padding: '5px 10px', borderRadius: '3px', marginRight: '10px' }}>
               x
@@ -120,11 +171,11 @@ function CustomIndicator() {
           ) : null}
         </div>
       ))}
-      <button onClick={handleAddCondition} style={{ backgroundColor: 'blue', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '3px', marginBottom: '10px' }}>
+      <button onClick={handleAddCondition} style={{ margin: '20px', backgroundColor: 'blue', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '3px', marginBottom: '10px' }}>
         Add Condition
       </button>
       <div>
-        <label style={{ color: '#ffffff' }}>
+        <label style={{ color: '#ffffff', margin: '10px' }}>
           <input
             type="checkbox"
             checked={takeProfit}
@@ -138,7 +189,6 @@ function CustomIndicator() {
             placeholder="Exit if user gained X%"
             style={{
               backgroundColor: '#ffffff',
-    
               padding: '5px',
               borderRadius: '3px',
               border: '1px solid #ccc',
@@ -148,7 +198,7 @@ function CustomIndicator() {
         ) : null}
       </div>
       <div>
-        <label style={{ color: '#ffffff' }}>
+        <label style={{ color: '#ffffff', margin: '13px' }}>
           <input
             type="checkbox"
             checked={stopLoss}
@@ -164,10 +214,10 @@ function CustomIndicator() {
           />
         ) : null}
       </div>
-      <button onClick={handleSubmit} style={{ backgroundColor: 'blue', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '3px' }}>
+      <button onClick={handleSubmit} style={{ backgroundColor: 'blue', color: '#fff', border: 'none', padding: '10px 20px', marginTop: '30px', borderRadius: '3px' }}>
         Submit
       </button>
-    </div>
+    </div >
   );
 }
 
