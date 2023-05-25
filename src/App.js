@@ -306,7 +306,7 @@ function CustomIndicator() {
 
           <br /><br />2. The use of leverage amplifies both potential gains and losses. Trading with leverage involves a higher level of risk, and you should carefully consider your risk tolerance and financial situation before engaging in leveraged trading.
 
-          <br /><br />3. This strategy is designed specifically for "Long Position" trading on the BTCUSDT.P ticker using 3x leverage, with the inclusion of both take-profit and stop-loss orders. It may not be suitable for other trading pairs, leverages, or trading directions. Always ensure that you understand the implications and risks associated with your trading decisions.
+          <br /><br />3. This strategy is designed specifically for <span style={{ fontWeight: 'bold', fontSize: 25 }}>Long Positions</span> trading on the <span style={{ fontWeight: 'bold', fontSize: 25 }}>BTCUSDT.P</span> ticker using 3x leverage, with the inclusion of both take-profit and stop-loss orders. It may not be suitable for other trading pairs, leverages, or trading directions. Always ensure that you understand the implications and risks associated with your trading decisions.
 
           <br /><br />4. The trading strategies implemented on this platform are solely the responsibility of the user. We do not guarantee the accuracy, completeness, or effectiveness of any strategy, and we disclaim any liability for losses incurred due to the use of these strategies.
 
