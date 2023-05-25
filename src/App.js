@@ -302,19 +302,19 @@ function CustomIndicator() {
         <h1 style={{ color: "white" }}>Disclaimer:</h1>
         <p style={{ color: '#ffffff', margin: '10px', marginTop: '50px' }}>
           Please note that the following information is provided for educational and informational purposes only. Trading strategies involve risks, and it is essential to exercise caution and conduct thorough research before engaging in any trading activities. The disclaimer below can be used as a starting point for your website, but it's recommended to consult with legal professionals to ensure compliance with applicable laws and regulations.
-          <br /><br />Trading involves significant risks, and past performance is not indicative of future results. The strategies described on this website may not be suitable for all individuals, and there is no guarantee of profitability.
+          <br /><br />1. Trading involves significant risks, and past performance is not indicative of future results. The strategies described on this website may not be suitable for all individuals, and there is no guarantee of profitability.
 
-          <br /><br />The use of leverage amplifies both potential gains and losses. Trading with leverage involves a higher level of risk, and you should carefully consider your risk tolerance and financial situation before engaging in leveraged trading.
+          <br /><br />2. The use of leverage amplifies both potential gains and losses. Trading with leverage involves a higher level of risk, and you should carefully consider your risk tolerance and financial situation before engaging in leveraged trading.
 
-          <br /><br />This strategy is designed specifically for "Long Position" trading on the BTCUSDT.P ticker using 3x leverage, with the inclusion of both take-profit and stop-loss orders. It may not be suitable for other trading pairs, leverages, or trading directions. Always ensure that you understand the implications and risks associated with your trading decisions.
+          <br /><br />3. This strategy is designed specifically for "Long Position" trading on the BTCUSDT.P ticker using 3x leverage, with the inclusion of both take-profit and stop-loss orders. It may not be suitable for other trading pairs, leverages, or trading directions. Always ensure that you understand the implications and risks associated with your trading decisions.
 
-          <br /><br />The trading strategies implemented on this platform are solely the responsibility of the user. We do not guarantee the accuracy, completeness, or effectiveness of any strategy, and we disclaim any liability for losses incurred due to the use of these strategies.
+          <br /><br />4. The trading strategies implemented on this platform are solely the responsibility of the user. We do not guarantee the accuracy, completeness, or effectiveness of any strategy, and we disclaim any liability for losses incurred due to the use of these strategies.
 
-          <br /><br />It is your responsibility to thoroughly test and validate any strategies before applying them to your Binance account. We recommend starting with small amounts and gradually increasing your exposure as you gain confidence and experience.
+          <br /><br />5. It is your responsibility to thoroughly test and validate any strategies before applying them to your Binance account. We recommend starting with small amounts and gradually increasing your exposure as you gain confidence and experience.
 
-          <br /><br />By connecting your Binance account to this platform, you understand and accept that you are granting necessary permissions for the automation of your trading activities. You should review and understand Binance's terms of service and privacy policy before proceeding.
+          <br /><br />6. By connecting your Binance account to this platform, you understand and accept that you are granting necessary permissions for the automation of your trading activities. You should review and understand Binance's terms of service and privacy policy before proceeding.
 
-          <br /><br />We strongly advise you to consult with a qualified financial advisor or professional before making any investment decisions. They can provide personalized advice based on your specific financial situation and risk tolerance.
+          <br /><br />7. We strongly advise you to consult with a qualified financial advisor or professional before making any investment decisions. They can provide personalized advice based on your specific financial situation and risk tolerance.
 
         </p>
 
