@@ -1,0 +1,18 @@
+condition = {
+  "conditions": [
+    {
+      "indicator": "PriceOpen",
+      "length": "",
+      "condition": "Greater Than Or Equal",
+      "choice": "Indicator",
+      "indicator2": "PriceHigh",
+      "length2": "",
+      "constantValue": ""
+    }
+  ],
+  "takeProfit": "123",
+  "stopLoss": "1231"
+}
+
+
+import json
