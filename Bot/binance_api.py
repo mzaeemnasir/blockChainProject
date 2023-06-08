@@ -18,7 +18,7 @@ class Binance:
     def __init__(self, api_key, api_secret, discord_webhook_url = None):
         try:
             self.client = Client(api_key=api_key, api_secret=api_secret, testnet= True) # Testnet is True for testing purposes
-            print("Binance API initialized successfully") 
+            print("Binance API initialized successfully & your Bot is Successfully Connected") 
             self.client.API_URL = 'https://testnet.binance.vision/api'
                 
             self.discord_webhook_url = discord_webhook_url
