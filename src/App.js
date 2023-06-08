@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import backgroundImage from './image/q.jpg';
-import mongo_uri from "./server";
+import fs from 'fs';
+
 // const MongoClient = require('mongodb').MongoClient;
 
 
@@ -57,6 +58,11 @@ function CustomIndicator() {
     const jsonData = JSON.stringify(data);
     console.log(jsonData);
     alert('JSON data: ' + jsonData);
+
+
+    // Saving the Data to the Database 
+
+
 
     // Clear input fields
     setConditions([{ indicator: '', length: '', condition: '', choice: "", indicator2: '', length2: '', constantValue: '' }]);

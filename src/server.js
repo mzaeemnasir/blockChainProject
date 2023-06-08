@@ -1,22 +1,23 @@
-const mongo_uri = "mongodb+srv://hitman:zaeem123@cluster0.rmbcl.mongodb.net/?retryWrites=true&w=majority"
-
 const { MongoClient } = require('mongodb');
 
+const url = "mongodb+srv://hitman:zaeem123@cluster0.rmbcl.mongodb.net/?retryWrites=true&w=majority"
 
-// uploading data to database
+async function connectToMongoDB() {
+  try {
+    // Connect to MongoDB
+    const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const client = new MongoClient(mongo_uri);
+    // Access the database
+    const db = client.db();
 
-async function setData(binance, data) {
-    try {
-        const collection = client.db("binance").collection('data');
+    // Perform database operations
+    // ...
 
-        // Check if data already exists against the symbol
-
-
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
-    }
+    // Close the connection
+    client.close();
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
 }
+
+connectToMongoDB();
