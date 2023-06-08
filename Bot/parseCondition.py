@@ -1,39 +1,3 @@
-condition = {
-  "conditions": [
-    {
-      "indicator": "PriceOpen",
-      "length": "",
-      "condition": "Greater Than Or Equal",
-      "choice": "Indicator",
-      "indicator2": "PriceHigh",
-      "length2": "",
-      "constantValue": ""
-    },  
-    {
-      "indicator": "PriceOpen",
-      "length": "",
-      "condition": "Greater Than Or Equal",
-      "choice": "Indicator",
-      "indicator2": "PriceHigh",
-      "length2": "",
-      "constantValue": ""
-    }
-  ],
-  "takeProfit": "123",
-  "stopLoss": "1231",
-  "binance_api":"e884248f986f1d587d8cfa36ff86271d04bafb10760399afd683bcad9936eb31",
-  "binance_secret":"051b2190c5781275fd8948c99f832de2c6069a2018fa3d7b57d30cd0c34ad972",
-  "discord_webhook":"123123123",
-}
-
-condition2 = {
-              "conditions":[{"indicator":"PriceOpen","length":"",
-              "condition":"Equal","value":"",
-              "choice":"ConstantValue",
-              "constantValue":"26600"}],
-              "takeProfit":"1.5","stopLoss":"1"}
-
-
 import json, dotenv, os
 import pandas as pd
 import pandas_ta as ta
@@ -41,10 +5,11 @@ from pymongo import MongoClient
 from tvDatafeed import TvDatafeed, Interval
 tv = TvDatafeed()
 
-
+def get_data_of_all_accounts():
+  pass
 
 dotenv.load_dotenv()
-mongo_url = os.getenv("MONGO_URL")
+mongo_url = os.getenv("MONGO_URL") 
 
 client = MongoClient(mongo_url)
 db = client["blockchain"]
@@ -96,6 +61,80 @@ def add_sma(length, data):
 
 
 
+def reversing_dataFrame(data):
+  data = data.iloc[::-1]
+  data.reset_index(drop=True, inplace=True)
+  return data
+
+
+
+def matching_conditions(data, conditions):
+  data = parsing_the_data(data)
+  
+  
+  normal_indicators = ["PriceOpen", "PriceHigh", "PriceLow", "PriceClose", "MACD 12,26"]
+  advanced_indicators = ["EMA", "RSI", "SMA"]
+  
+  
+  
+  
+  if len(conditions) == 0 or conditions["conditions"][0]["indicator"] is None  or conditions["conditions"][0]["indicator2"] is None:
+    return "There is no condition Skipping...."
+  
+  data = data.head(1)
+  
+  # Placing the conditions if all conditions are true
+  for i in conditions["conditions"]:
+    if data["indicator"] is None or data["indicator2"] is None:
+      return None
+
+
+    # Concatinating the indicator and length
+    if i["indicator"] in advanced_indicators:
+      i["indicator"] = i["indicator"]+"_"+str(i["length"])
+      
+    if i["indicator2"] in advanced_indicators:
+      i["indicator2"] = i["indicator2"]+"_"+str(i["length2"])
+      
+      
+    """
+    Codition: Greater Than Or Equal (>=) and Equal (==) and Crosses Above
+    If the indicator is constant value then we will check if the constant value is equal to the indicator value
+
+    """
+
+    # Greater Than Or Equal and Equal (>=)
+    if i["condition"] == "Greater Than Or Equal" or i["condition"] == "Crosses Above" or i["condition"] == "Equal":
+    # if the indicator is constant value
+      if i["choice"] == "ConstantValue" and data.iloc[0][i["indicator"]] == i["constantValue"]:
+        print("Placing Order")
+        
+      # if the indicator is not constant value
+      elif data.iloc[0][i["indicator"]] >= data.iloc[0][i["indicator2"]]:
+        print("Placing Order")
+       
+      """
+      
+      Codition:  Less Than Or Equal (<=) and Equal (==) and Crosses Below
+
+      If the indicator is constant value then we will check if the constant value is equal to the indicator value
+
+      """
+     
+    # Less Than Or Equal and Equal (<=)
+    elif i["condition"] == "Crosses Below" or i["condition"] == "Less Than Or Equal" or i["condition"] == "Equal":
+      
+      # if the indicator is constant value
+      if i["choice"] == "ConstantValue" and data.iloc[0][i["indicator"]] == i["constantValue"]:
+        print("Placing Order")
+        
+        
+      # if the indicator is not constant value
+      elif data.iloc[0][i["indicator"]] <= data.iloc[0][i["indicator2"]]:
+        print("Placing Order")
+      
+            
+
   
 def parsing_the_data(jsonData):
   # Taking Main Values
@@ -104,11 +143,16 @@ def parsing_the_data(jsonData):
   # discord_webhook = jsonData["discord_webhook"]
   # takeProfit = jsonData["takeProfit"]
   # stopLoss = jsonData["stopLoss"]
+  
+  
+  data =  get_btc_data()
 
 
   neutral_indicators = ["PriceOpen", "PriceHigh", "PriceLow", "PriceClose", "MACD 12,26"]
 
   advanced_indicators = ["EMA", "RSI", "SMA"]
+  
+  all_conditions =  []
 
 
   # Taking Conditions
@@ -121,9 +165,6 @@ def parsing_the_data(jsonData):
     indicator2 = i.get("indicator2")
     length2 = i.get("length2")
     constantValue = i.get("constantValue")
-    
-    condition1 = ""
-    condition2 = ""
     
     if indicator in advanced_indicators:
       length = int(length)
@@ -143,8 +184,7 @@ def parsing_the_data(jsonData):
         data = add_rsi(length2, data)
       elif indicator2 == "SMA":
         data = add_sma(length2, data)
+        
+  data = reversing_dataFrame(data)
       
-     
-  
-  
-print(parsing_the_data(condition))
+  return data

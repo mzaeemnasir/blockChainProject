@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import backgroundImage from './image/q.jpg';
-
-import mongoose from "mongoose";
-const mongo_uri = "mongodb+srv://hitman:zaeem123@cluster0.rmbcl.mongodb.net/?retryWrites=true&w=majority";
-
-// const MongoClient = require('mongodb').MongoClient;
+import axios from 'axios';
 
 
 function CustomIndicator() {
@@ -56,35 +52,18 @@ function CustomIndicator() {
       takeProfit,
       stopLoss,
     };
-    const jsonData = JSON.stringify(data);
-    console.log(jsonData);
-    alert('JSON data: ' + jsonData);
 
+    console.log('JSON data: ' + data);
+    try {
+      axios.post('http://127.0.0.1:3001/data', data).then((results) => {
+        console.log(results)
+      }).catch((err) => {
+        alert(err)
+      })
+    } catch (error) {
+      console.log(error);
+    }
 
-    // Saving the Data to the Database 
-
-    const connectionParams = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    };
-
-    await mongoose.connect(mongo_uri, connectionParams);
-
-    console.log('Connected to database');
-
-    const Data = mongoose.model("Data", {
-      _id: { type: String, required: true },
-      data: { type: Object, required: true },
-    });
-
-    console.log("Created Model ");
-
-    const newData = new Data({ _id: binance_api, data: data });
-    await newData.save()
-    alert("Data Pushed");
-
-
-    // Clear input fields
     setConditions([{ indicator: '', length: '', condition: '', choice: "", indicator2: '', length2: '', constantValue: '' }]);
   };
 
@@ -104,7 +83,7 @@ function CustomIndicator() {
     >
       <h1 style={{ color: '#f5f5f5', marginBottom: '100px', marginTop: '100px' }}>Create your own Custom Trading Bot</h1>
       {conditions.map((condition, index) => (
-        <div key={index}>
+        <div key={index} style={{ marginBottom: '25px' }}>
           <select
             name="indicator"
             value={condition.indicator}
@@ -194,22 +173,19 @@ function CustomIndicator() {
             />
           ) : null}
 
-
-
-
-
           {conditions.length > 1 ? (
             <button onClick={() => handleRemoveCondition(index)} style={{ backgroundColor: 'blue', color: '#fff', border: 'none', padding: '5px 10px', borderRadius: '3px', marginRight: '10px' }}>
               x
             </button>
           ) : null}
         </div>
-      ))}
-      <button onClick={handleAddCondition} style={{ margin: '20px', backgroundColor: 'blue', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '3px', marginBottom: '10px' }}>
+      ))
+      }
+      {/* <button onClick={handleAddCondition} style={{ margin: '20px', backgroundColor: 'blue', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '3px', marginBottom: '10px' }}>
         Add Condition
-      </button>
+      </button> */}
       <div>
-        <label style={{ color: '#ffffff', margin: '10px' }}>
+        <label style={{ color: '#ffffff', margin: '10px', }}>
           Take Profit
 
           <input
