@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import backgroundImage from './image/q.jpg';
+import mongo_uri from "./server";
+// const MongoClient = require('mongodb').MongoClient;
+
 
 function CustomIndicator() {
   const [conditions, setConditions] = useState([{ indicator: '', length: '', condition: '', value: '' }]);
@@ -321,7 +324,6 @@ function CustomIndicator() {
       </div>
 
     </div >
-
   );
 }
 
