@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import backgroundImage from './image/q.jpg';
-import fs from 'fs';
 
 // const MongoClient = require('mongodb').MongoClient;
 

@@ -1,1 +1,2 @@
 python-binance
+git+https://github.com/StreamAlpha/tvdatafeed.git 
