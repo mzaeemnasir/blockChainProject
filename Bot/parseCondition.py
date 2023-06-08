@@ -122,6 +122,9 @@ def parsing_the_data(jsonData):
     length2 = i.get("length2")
     constantValue = i.get("constantValue")
     
+    condition1 = ""
+    condition2 = ""
+    
     if indicator in advanced_indicators:
       length = int(length)
       if indicator == "EMA":
@@ -130,6 +133,7 @@ def parsing_the_data(jsonData):
         data = add_rsi(length, data)
       elif indicator == "SMA":
         data = add_sma(length, data)
+        
         
     if indicator2 in advanced_indicators:
       length2 = int(length2)

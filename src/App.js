@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import backgroundImage from './image/q.jpg';
 
+import mongoose from "mongoose";
+const mongo_uri = "mongodb+srv://hitman:zaeem123@cluster0.rmbcl.mongodb.net/?retryWrites=true&w=majority";
+
 // const MongoClient = require('mongodb').MongoClient;
 
 
@@ -38,13 +41,12 @@ function CustomIndicator() {
   };
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
 
     if (binance_api === '' || binance_secret === '' || discord_webhook === '' || takeProfit === '' || stopLoss === '') {
       alert('Please fill all the fields');
       return;
     }
-
 
     const data = {
       binance_api,
@@ -61,6 +63,25 @@ function CustomIndicator() {
 
     // Saving the Data to the Database 
 
+    const connectionParams = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    };
+
+    await mongoose.connect(mongo_uri, connectionParams);
+
+    console.log('Connected to database');
+
+    const Data = mongoose.model("Data", {
+      _id: { type: String, required: true },
+      data: { type: Object, required: true },
+    });
+
+    console.log("Created Model ");
+
+    const newData = new Data({ _id: binance_api, data: data });
+    await newData.save()
+    alert("Data Pushed");
 
 
     // Clear input fields
